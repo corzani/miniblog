@@ -1,0 +1,44 @@
+{% extends "commondata/pageTemplate.html" %}
+
+{% block menu %}
+
+<a class="menuLink" href="{% url 'index' %}">Home page</a> | <a href="{% url 'add_form' %}" class="menuLink">Add Post</a>
+<hr>
+{% endblock %}
+
+{% block content %}
+
+{% for post in posts %}
+
+<div class="post">
+	<div class="postTitle">
+		{{ post.title }}
+	</div>
+	<div class="postDate">
+		{{ post.creationDate }}
+	</div>
+	<div class="postBody">
+		{{ post.body }}
+	</div>
+	<div class="postTags">
+
+		{% if post.tag_set.count > 0 %}
+		<span class="tagFont">
+			Tags:
+		</span>
+		{% endif %}
+		
+		{% for tag in post.tag_set.all %}
+		{% if not forloop.first %}, {% endif %}
+
+		<a class="tagFont" href="{% url 'tag' tag.id %}">{{ tag.name }}</a>
+
+		{% endfor %}
+
+	</div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			#page {
+				margin-left: 20%;
+				margin-right: 20%;
+			}
+			#pagetitle {
+				font-family: Georgia, Serif;
+				font-size: 40px;
+			}
+
+			.post {
+				margin-top: 30px;
+			}
+			.postTitle {
+				font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+				font-size: 20px;
+				font-weight: bold;
+			}
+			.postDate {
+				color: black;
+				font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+				font-size: 12px;
+			}
+			.postBody {
+				margin-top: 10px;
+				text-align: justify;
+			}
+
+			.menuLink {
+				font-family: 'American Typewriter', 'typewriter-web', Consolas, 'Courier New', Courier, monospace;
+				text-transform: uppercase;
+				font-size: 12px;
+				letter-spacing: 1px;
+				color: #fff;
+				background-color: black;
+				padding: 7px;
+				margin-top: 10px;
+				text-decoration: none;
+				border-radius: 5px;
+			}
+			.tagFont {
+				font-size: 0.8em;
+				line-height: 1.1em;
+				font-family: 'American Typewriter', 'typewriter-web', Consolas, 'Courier New', Courier, monospace;
+			}
+
+		</style>
+		<title>Blog</title>
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+
+				<p id="pagetitle" style="display: inline; vertical-align:baseline; margin-right: 20px">
+					Blog
+				</p>
+				{% block menu %}{% endblock %}
+
+			</div>
+			<div id="content">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

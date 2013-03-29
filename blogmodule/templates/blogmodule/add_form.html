@@ -1,0 +1,19 @@
+
+{% extends "commondata/pageTemplate.html" %}
+
+{% block menu %}
+
+<a class="menuLink" href="{% url 'index' %}">Home page</a> | <a class="menuLink">Add Post</a>
+<hr>
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'insert_post' %}" method="post">{% csrf_token %}
+{{ form.as_p }}
+<p>Comma separated tags</p>
+<input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}

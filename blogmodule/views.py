@@ -32,7 +32,7 @@ def tag(request, tagId):
 
 def add_form(request):
     """ Add a post to blog """
-    form = AddPostForm(request.POST)
+    form = AddPostForm()
     return render(request, 'blogmodule/add_form.html', {'form': form})
     
 
@@ -46,10 +46,13 @@ def insert_post(request):
         if form.is_valid():
             postTitle = form.cleaned_data['title']
             postBody = form.cleaned_data['body']
-            postTags = form.cleaned_data['tags']
+            postTags = form.cleaned_data['tags'].strip()
 
             # Tags become uppercase because it's simplier to handle
-            tagList = [el.strip().upper() for el in postTags.split(',')] 
+            tagList = [el.strip().upper() for el in postTags.split(',')]
+            
+            # Delete empty tags...
+            tagList = [el for el in tagList if el != ""]
 
             # This should be done in one transaction
             
@@ -64,8 +67,6 @@ def insert_post(request):
                     tempTag.save()
                 post.tag_set.add(tempTag)
             post.save()
+            return HttpResponseRedirect('/blog/')
             
-#        else:
-#            form = AddPostForm()
-            
-    return HttpResponseRedirect('/blog/')
+    return render(request, 'blogmodule/add_form.html', {'form': form})

@@ -2,3 +2,10 @@
 /commondata/__pycache__/
 /miniblog/__pycache__/
 /build/
+/src/
+/autoload/
+/dbindexer/
+/django/
+/djangoappengine/
+/djangotoolbox/
+

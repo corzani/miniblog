@@ -16,5 +16,4 @@ cp -r build/django-nonrel/django ./django
 cp -r build/djangoappengine/djangoappengine ./djangoappengine
 cp -r build/djangotoolbox/djangotoolbox ./djangotoolbox
 
-rm -r ./build
-rm -r ./djangoappengine/djangoappengine.egg-info
+rm -r ./build ./src

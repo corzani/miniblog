@@ -2,22 +2,32 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
 from blogmodule.models import Post, Tag
-from blogmodule.forms import AddPostForm
+from blogmodule.forms import AddPostForm, AddCommentForm
 from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
     """ Add a post to blog """
 
     lastestPosts = Post.objects.all().order_by('-creationDate')
-    return render(request, 'blogmodule/post.html', {'posts': lastestPosts})
+    return render(request, 'blogmodule/post.html', {'posts': lastestPosts, 'viewFullData' : False})
 
 def post(request, postId):
     """ Add a post to blog """
     try:
-        posts = Post.objects.get(pk=postId)
+        posts = [Post.objects.get(pk=postId)]
+        form = AddCommentForm()
     except Post.DoesNotExist:
-        raise Http404
-    return render(request, 'blogmodule/post.html', {'posts': posts})
+        return HttpResponseRedirect('/blog/')
+    return render(request, 'blogmodule/post.html', {'posts': posts, 'viewFullData' : True,'form' : form}) # , 'comments' : comments})
+
+def delete_post(request, postId):
+    """ Add a post to blog """
+    
+    post = Post.objects.get(pk=postId).delete()
+    
+    return HttpResponseRedirect('/blog/')
+
+
 
 def tag(request, tagId):
     """ Add a post to blog """
@@ -27,13 +37,28 @@ def tag(request, tagId):
         postsByTag = tag.posts.order_by('-creationDate')
     except Tag.DoesNotExist:
         raise Http404
-    return render(request, 'blogmodule/post.html',{'posts': postsByTag})
-
+    return render(request, 'blogmodule/post.html', {'posts': postsByTag, 'viewFullData' : False})
 
 def add_form(request):
     """ Add a post to blog """
     form = AddPostForm()
     return render(request, 'blogmodule/add_form.html', {'form': form})
+
+def insert_comment(request, postId):
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        if form.is_valid():
+            postComment = form.cleaned_data['comment']
+            try:
+                tempPost = Post.objects.get(pk=postId)
+                tempPost.comment_set.create(comment=postComment, creationDate=timezone.now())
+                tempPost.save()
+            except ObjectDoesNotExist:
+                # Post doesn't exist, at the moment I simply redirect to home page without showing alerts...
+                return HttpResponseRedirect('/blog/')
+
+    # 
+    return HttpResponseRedirect('/blog/post/'+postId)
     
 
 def insert_post(request):
@@ -56,7 +81,7 @@ def insert_post(request):
 
             # This should be done in one transaction
             
-            post = Post(title=postTitle,body=postBody,creationDate=timezone.now())
+            post = Post(title=postTitle, body=postBody, creationDate=timezone.now())
             post.save()
             tempTag = None
             for tag in tagList:

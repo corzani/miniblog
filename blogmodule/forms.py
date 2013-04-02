@@ -9,3 +9,6 @@ class AddPostForm(forms.Form):
     title = forms.CharField(max_length=100,label="Post title",validators=[validate_not_empty])
     body = forms.CharField(label="Post content",validators=[validate_not_empty],widget = forms.Textarea)
     tags = forms.CharField(label="Tags*",required=False)
+
+class AddCommentForm(forms.Form):
+    comment = forms.CharField(label="Add a comment",validators=[validate_not_empty],widget = forms.Textarea)

@@ -3,14 +3,21 @@
 {% block menu %}
 
 <a class="menuLink" href="{% url 'index' %}">Home page</a> | <a href="{% url 'add_form' %}" class="menuLink">Add Post</a>
+
+{% if viewFullData and posts %}
+| <a class="menuLink" href="{% url 'delete_post' posts.0.id %}">Delete Post</a>
+{% endif  %}
+
 <hr>
 {% endblock %}
 
 {% block content %}
 
-		{% if not posts %}
-		<p>No post. Click on ADD POST to add new post</p>
-		{% endif %}
+{% if not posts %}
+<p>
+	No post. Click on ADD POST to add new post
+</p>
+{% endif %}
 
 {% for post in posts %}
 
@@ -41,11 +48,11 @@
 
 		<hr/>
 
-		<p  class="monospaceFont" >
-			Comments:
-		</p>
-
 		<div class="comment">
+			<p  class="monospaceFont" >
+				Comments:
+			</p>
+
 			{% for comment in post.comment_set.all %}
 
 			<p class="monospaceFont">
@@ -69,11 +76,10 @@
 		</div>
 
 		{% else %}
-		
-		
-			<p class="monospaceFont">Comments: {{ post.comment_set.count }}</p>
+		<p class="monospaceFont">
+			Comments: {{ post.comment_set.count }}
+		</p>
 		{% endif %}
-		
 
 	</div>
 

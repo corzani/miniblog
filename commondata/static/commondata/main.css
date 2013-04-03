@@ -1,0 +1,64 @@
+#page {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+#pagetitle {
+	font-family: Georgia, Serif;
+	font-size: 40px;
+}
+#postForm th {
+	text-align: right;
+	/*	width: 100%;*/
+}
+
+div.comment {
+	/*			border-left-style: solid;
+	 border-width: 1px;*/
+}
+p.comment {
+
+	padding-left: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	/*
+	 border:0px solid;
+	 border-left-width: 3px;
+	 */
+
+}
+
+.post {
+	margin-top: 30px;
+}
+.postTitle {
+	font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+.postDate {
+	color: black;
+	font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+.postBody {
+	margin-top: 10px;
+	text-align: justify;
+}
+
+.menuLink {
+	font-family: 'American Typewriter', 'typewriter-web', Consolas, 'Courier New', Courier, monospace;
+	text-transform: uppercase;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: #fff;
+	background-color: black;
+	padding: 7px;
+	margin-top: 10px;
+	text-decoration: none;
+	border-radius: 5px;
+}
+.monospaceFont {
+	font-size: 0.8em;
+	line-height: 1.1em;
+	font-family: 'American Typewriter', 'typewriter-web', Consolas, 'Courier New', Courier, monospace;
+}
